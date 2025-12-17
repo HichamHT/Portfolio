@@ -1,1 +1,131 @@
 @import "tailwindcss";
+
+:root {
+  /* Espaciado fluido */
+  --space-3xs: 0.5rem;
+  --space-2xs: 0.75rem;
+  --space-xs: 1rem;
+  --space-sm: 1.5rem;
+  --space-md: 2rem;
+  --space-lg: 3rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --gap-fluid: 2rem;
+  
+  /* Paleta Corregida */
+  --bg-light: #f1f1f1;  /* El blanco de fondo que querías */
+  --text-dark: #1a1a1a; /* El negro para las letras del Hero */
+  
+  --bg-dark: #000000;   /* Para secciones negras */
+  --text-light: #ffffff;
+  
+  --color-secondary-50: #8c8c73;
+}
+
+/* Unificamos html y body con el nuevo fondo claro */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  background-color: var(--bg-light); /* Ahora es claro por defecto */
+  color: var(--text-dark);          /* Letras oscuras por defecto */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+main {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Efecto de Grano (Ajustado para que se vea bien en fondos claros y oscuros) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0.04; 
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  filter: contrast(150%) brightness(100%);
+}
+
+/* Proyectos: Clip-path dinámico */
+.project-image-container {
+  clip-path: inset(0% round 0.75rem);
+  transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.project-card:hover .project-image-container {
+  clip-path: inset(2% round 0.75rem);
+}
+
+.project-card img {
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.project-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Tipografía */
+p {
+  text-wrap: pretty;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+  letter-spacing: -0.03em;
+}
+
+/* Animación de Menú Underline */
+nav ul li a .underline-span {
+    position: relative;
+    display: inline-block;
+}
+
+nav ul li a .underline-span::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+nav ul li a:hover .underline-span::after {
+    width: 100%;
+}
+
+/* SECCIONES: Eliminado el background-color: black fijo */
+section {
+    position: relative;
+    z-index: 10;
+    /* Ya no forzamos negro aquí, así el Hero puede ser blanco */
+}
+
+/* FOOTER: Mantiene su lógica de capas */
+footer {
+    z-index: 1; 
+}
+
+footer .fixed {
+    z-index: -1;
+    background-color: var(--bg-dark); /* El footer sí sigue siendo negro */
+    color: var(--text-light);
+}
+
+/* Ajuste para las filas de servicios que sí deben ser negras */
+.service-item, .services-wrapper {
+    background-color: var(--bg-dark); /* Forzamos que los servicios sean negros */
+    color: var(--text-light);
+}
+
+.service-row {
+    transition: transform 0.3s ease-out;
+}
