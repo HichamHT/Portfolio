@@ -1,5 +1,5 @@
 ---
-// src/components/WillemAnimation.astro
+// src/components/HichamAnimation.astro
 
 // Props personalizables
 export interface Props {
@@ -13,7 +13,7 @@ export interface Props {
 }
 
 // Valores por defecto
-const { name = "Willem" } = Astro.props;
+const { name = "Hicham" } = Astro.props;
 
 // Procesar las imágenes con valores por defecto
 const images = {
@@ -37,84 +37,80 @@ function splitName(text: string) {
 const { firstHalf, secondHalf } = splitName(name);
 ---
 
-<section class="willem-header is--loading is--hidden">
-  <div class="willem-loader">
-    <div class="willem__h1">
-      <div class="willem__h1-start">
+<section class="hicham-header is--loading is--hidden">
+  <div class="hicham-loader">
+    <div class="hicham__h1">
+      <div class="hicham__h1-start">
         {firstHalf.map((letter, index) => (
-          <span class="willem__letter">{letter}</span>
+          <span class="hicham__letter">{letter}</span>
         ))}
       </div>
-      <div class="willem-loader__box">
-        <div class="willem-loader__box-inner">
-          <div class="willem__growing-image">
-            <div class="willem__growing-image-wrap">
-              <img class="willem__cover-image-extra is--1" src={images.extra1} loading="lazy" alt="" />
-              <img class="willem__cover-image-extra is--2" src={images.extra2} loading="lazy" alt="" />
-              <img class="willem__cover-image-extra is--3" src={images.extra3} loading="lazy" alt="" />
-              <img class="willem__cover-image" src={images.main} loading="lazy" alt="" />
+      <div class="hicham-loader__box">
+        <div class="hicham-loader__box-inner">
+          <div class="hicham__growing-image">
+            <div class="hicham__growing-image-wrap">
+              <img class="hicham__cover-image-extra is--1" src={images.extra1} loading="lazy" alt="" />
+              <img class="hicham__cover-image-extra is--2" src={images.extra2} loading="lazy" alt="" />
+              <img class="hicham__cover-image-extra is--3" src={images.extra3} loading="lazy" alt="" />
+              <img class="hicham__cover-image" src={images.main} loading="lazy" alt="" />
             </div>
           </div>
         </div>
       </div>
-      <div class="willem__h1-end">
+      <div class="hicham__h1-end">
         {secondHalf.map((letter, index) => (
-          <span class="willem__letter">{letter}</span>
+          <span class="hicham__letter">{letter}</span>
         ))}
       </div>
     </div>
   </div>
   
-  <div class="willem-header__content">
-    <div class="willem-header__top">
-      <nav class="willen-nav">
-        <div class="willem-nav__start">
-          <a href="/" class="willem-nav__link">Desarrollador Full-Stack</a>
+  <div class="hicham-header__content">
+    <div class="hicham-header__top">
+      <nav class="hicham-nav">
+        <div class="hicham-nav__start">
+          <a href="/" class="hicham-nav__link">Desarrollador Full-Stack</a>
         </div>
-        <div class="willem-nav__end">
-          <div class="willem-nav__links">
-            <a href="#projects" class="willem-nav__link">Proyectos</a>
-            <a href="#about" class="willem-nav__link">Sobre mí</a>
-            <a href="#contact" class="willem-nav__link">Contacto</a>
-          </div>
-          <div class="willem-nav__cta">
-            <a href="#contact" class="willem-nav__link">Contáctame</a>
+        <div class="hicham-nav__end">
+          <div class="hicham-nav__links">
+            <a href="#projects" class="hicham-nav__link">Proyectos</a>
+            <a href="#about" class="hicham-nav__link">Sobre mí</a>
+            <a href="#contact" class="hicham-nav__link">Contacto</a>
           </div>
         </div>
       </nav>
     </div>
     
-    <div class="willem-header__bottom">
-      <div class="willem__h1">
+    <div class="hicham-header__bottom">
+      <div class="hicham__h1">
         {name.split('').map((letter, index) => (
-          <span class="willem__letter-white">
+          <span class="hicham__letter-white">
             {letter}
           </span>
         ))}
-        <span class="willem__letter-white is--space">©</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Script corregido que evita errores de SSR -->
+<!-- Script corregido con las nuevas clases -->
 <script is:inline>
   // Función que solo se ejecuta en el navegador
   const initAnimation = () => {
     // Verificar si estamos en el navegador
     if (typeof window === 'undefined') return;
     
-    const container = document.querySelector(".willem-header");
+    const container = document.querySelector(".hicham-header");
     if (!container) return;
     
-    const loadingLetter = container.querySelectorAll(".willem__letter");
-    const box = container.querySelectorAll(".willem-loader__box");
-    const growingImage = container.querySelectorAll(".willem__growing-image");
-    const headingStart = container.querySelectorAll(".willem__h1-start");
-    const headingEnd = container.querySelectorAll(".willem__h1-end");
-    const coverImageExtra = container.querySelectorAll(".willem__cover-image-extra");
-    const headerLetter = container.querySelectorAll(".willem__letter-white");
-    const navLinks = container.querySelectorAll(".willen-nav a, .osmo-credits__p");
+    const loadingLetter = container.querySelectorAll(".hicham__letter");
+    const box = container.querySelectorAll(".hicham-loader__box");
+    const growingImage = container.querySelectorAll(".hicham__growing-image");
+    const headingStart = container.querySelectorAll(".hicham__h1-start");
+    const headingEnd = container.querySelectorAll(".hicham__h1-end");
+    const coverImageExtra = container.querySelectorAll(".hicham__cover-image-extra");
+    const headerLetter = container.querySelectorAll(".hicham__letter-white");
+    const navLinks = container.querySelectorAll(".hicham-nav a");
     
     // GSAP Timeline
     const tl = window.gsap.timeline({
@@ -248,8 +244,8 @@ const { firstHalf, secondHalf } = splitName(name);
 </script>
 
 <style>
-  /* Estilos específicos del componente Willem */
-  .willem-header {
+  /* Estilos específicos del componente Hicham */
+  .hicham-header {
     position: relative;
     overflow: hidden;
     background-color: #201d1d;
@@ -257,11 +253,11 @@ const { firstHalf, secondHalf } = splitName(name);
     min-height: 100vh;
   }
   
-  .willem-header.is--loading.is--hidden {
+  .hicham-header.is--loading.is--hidden {
     display: none;
   }
   
-  .willem-loader {
+  .hicham-loader {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -273,7 +269,7 @@ const { firstHalf, secondHalf } = splitName(name);
     overflow: hidden;
   }
   
-  .willem__h1 {
+  .hicham__h1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -283,28 +279,28 @@ const { firstHalf, secondHalf } = splitName(name);
     white-space: nowrap;
   }
   
-  .willem__h1-start,
-  .willem__h1-end {
+  .hicham__h1-start,
+  .hicham__h1-end {
     display: flex;
     overflow: hidden;
   }
   
-.willem__h1-start {
-  justify-content: flex-end;
-  width: 1.9em; /* Aumentado para letras más anchas */
-}
-
-.willem__h1-end {
-  justify-content: flex-start;
-  width: 1.9em; /* Aumentado para letras más anchas */
-}
+  .hicham__h1-start {
+    justify-content: flex-end;
+    width: 1.9em; /* Aumentado para letras más anchas */
+  }
   
-  .willem__letter {
+  .hicham__h1-end {
+    justify-content: flex-start;
+    width: 1.9em; /* Aumentado para letras más anchas */
+  }
+  
+  .hicham__letter {
     display: block;
     position: relative;
   }
   
-  .willem-loader__box {
+  .hicham-loader__box {
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -313,16 +309,16 @@ const { firstHalf, secondHalf } = splitName(name);
     position: relative;
   }
   
-.willem-loader__box-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 1em;
-  height: 95%;
-  position: relative;
-}
+  .hicham-loader__box-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1em;
+    height: 95%;
+    position: relative;
+  }
   
-.willem__growing-image {
+  .hicham__growing-image {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -334,7 +330,7 @@ const { firstHalf, secondHalf } = splitName(name);
     background-color: rgba(255, 0, 0, 0.5);
   }
 
-  .willem__growing-image-wrap {
+  .hicham__growing-image-wrap {
     width: 100%;
     min-width: 1em;
     height: 100%;
@@ -343,8 +339,8 @@ const { firstHalf, secondHalf } = splitName(name);
     background-color: rgba(0, 255, 0, 0.5);
   }
   
-  .willem__cover-image,
-  .willem__cover-image-extra {
+  .hicham__cover-image,
+  .hicham__cover-image-extra {
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
@@ -354,15 +350,13 @@ const { firstHalf, secondHalf } = splitName(name);
     position: absolute;
     top: 0;
     left: 0;
-    /* Temporal: borde para ver las imágenes */
-    border: 2px solid blue;
   }
   
-  .willem__cover-image-extra.is--1 { z-index: 3; }
-  .willem__cover-image-extra.is--2 { z-index: 2; }
-  .willem__cover-image-extra.is--3 { z-index: 1; }
+  .hicham__cover-image-extra.is--1 { z-index: 3; }
+  .hicham__cover-image-extra.is--2 { z-index: 2; }
+  .hicham__cover-image-extra.is--3 { z-index: 1; }
   
-  .willem-header__content {
+  .hicham-header__content {
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -373,12 +367,12 @@ const { firstHalf, secondHalf } = splitName(name);
     position: relative;
   }
   
-  .willem-header__top {
+  .hicham-header__top {
     width: 100%;
     position: relative;
   }
   
-  .willem-header__bottom {
+  .hicham-header__bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -387,62 +381,55 @@ const { firstHalf, secondHalf } = splitName(name);
     overflow: hidden;
   }
   
-  .willen-nav {
+  .hicham-nav {
     display: flex;
     position: relative;
     overflow: hidden;
     width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
   }
   
-  .willem-nav__start {
+  .hicham-nav__start {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 50%;
+    width: auto;
   }
   
-  .willem-nav__end {
+  .hicham-nav__end {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-start;
-    width: 50%;
+    width: auto;
   }
   
-  .willem-nav__links {
+  .hicham-nav__links {
     display: flex;
-    gap: 0.5em;
+    gap: 1.5em;
   }
   
-  .willem-nav__link {
+  .hicham-nav__link {
     color: #f4f4f4;
     font-size: 1.3125em;
     line-height: 1.3;
     text-decoration: none;
     position: relative;
+    transition: opacity 0.3s ease;
+  }
+
+  .hicham-nav__link:hover {
+    opacity: 0.8;
   }
   
-  .willem__letter-white {
+  .hicham__letter-white {
     display: block;
     position: relative;
     color: #f4f4f4;
+    width: auto;
   }
   
-  .willem__letter-white.is--space {
+  .hicham__letter-white.is--space {
     margin-left: 0.25em;
-  }
-  
-  .osmo-credits__p {
-    pointer-events: auto;
-    text-align: center;
-    margin: 0;
-    font-size: 1.125em;
-    font-weight: 500;
-    line-height: 1.3;
-    color: rgba(255, 255, 255, 0.6);
-  }
-  
-  .osmo-credits__p-a {
-    color: #f4f4f4;
-    text-decoration: none;
   }
 </style>
