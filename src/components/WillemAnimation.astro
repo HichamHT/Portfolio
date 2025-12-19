@@ -1,0 +1,448 @@
+---
+// src/components/WillemAnimation.astro
+
+// Props personalizables
+export interface Props {
+  name?: string;
+  images?: {
+    main?: string;
+    extra1?: string;
+    extra2?: string;
+    extra3?: string;
+  };
+}
+
+// Valores por defecto
+const { name = "Willem" } = Astro.props;
+
+// Procesar las imágenes con valores por defecto
+const images = {
+  main: "https://cdn.prod.website-files.com/6915bbf51d482439010ee790/6915bc3ac9fe346a924724b0_minimalist-architecture-1.avif",
+  extra1: "https://cdn.prod.website-files.com/6915bbf51d482439010ee790/6915bc3ac9fe346a924724bc_minimalist-architecture-2.avif",
+  extra2: "https://cdn.prod.website-files.com/6915bbf51d482439010ee790/6915bc3ac9fe346a924724cf_minimalist-architecture-4.avif",
+  extra3: "https://cdn.prod.website-files.com/6915bbf51d482439010ee790/6915bc3ac9fe346a924724c5_minimalist-architecture-3.avif",
+  ...Astro.props.images
+};
+
+// Función para dividir el nombre en letras
+function splitName(text: string) {
+  const letters = text.split('');
+  const middleIndex = Math.floor(letters.length / 2);
+  const firstHalf = letters.slice(0, middleIndex);
+  const secondHalf = letters.slice(middleIndex);
+  
+  return { firstHalf, secondHalf };
+}
+
+const { firstHalf, secondHalf } = splitName(name);
+---
+
+<section class="willem-header is--loading is--hidden">
+  <div class="willem-loader">
+    <div class="willem__h1">
+      <div class="willem__h1-start">
+        {firstHalf.map((letter, index) => (
+          <span class="willem__letter">{letter}</span>
+        ))}
+      </div>
+      <div class="willem-loader__box">
+        <div class="willem-loader__box-inner">
+          <div class="willem__growing-image">
+            <div class="willem__growing-image-wrap">
+              <img class="willem__cover-image-extra is--1" src={images.extra1} loading="lazy" alt="" />
+              <img class="willem__cover-image-extra is--2" src={images.extra2} loading="lazy" alt="" />
+              <img class="willem__cover-image-extra is--3" src={images.extra3} loading="lazy" alt="" />
+              <img class="willem__cover-image" src={images.main} loading="lazy" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="willem__h1-end">
+        {secondHalf.map((letter, index) => (
+          <span class="willem__letter">{letter}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+  
+  <div class="willem-header__content">
+    <div class="willem-header__top">
+      <nav class="willen-nav">
+        <div class="willem-nav__start">
+          <a href="/" class="willem-nav__link">Desarrollador Full-Stack</a>
+        </div>
+        <div class="willem-nav__end">
+          <div class="willem-nav__links">
+            <a href="#projects" class="willem-nav__link">Proyectos</a>
+            <a href="#about" class="willem-nav__link">Sobre mí</a>
+            <a href="#contact" class="willem-nav__link">Contacto</a>
+          </div>
+          <div class="willem-nav__cta">
+            <a href="#contact" class="willem-nav__link">Contáctame</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    
+    <div class="willem-header__bottom">
+      <div class="willem__h1">
+        {name.split('').map((letter, index) => (
+          <span class="willem__letter-white">
+            {letter}
+          </span>
+        ))}
+        <span class="willem__letter-white is--space">©</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Script corregido que evita errores de SSR -->
+<script is:inline>
+  // Función que solo se ejecuta en el navegador
+  const initAnimation = () => {
+    // Verificar si estamos en el navegador
+    if (typeof window === 'undefined') return;
+    
+    const container = document.querySelector(".willem-header");
+    if (!container) return;
+    
+    const loadingLetter = container.querySelectorAll(".willem__letter");
+    const box = container.querySelectorAll(".willem-loader__box");
+    const growingImage = container.querySelectorAll(".willem__growing-image");
+    const headingStart = container.querySelectorAll(".willem__h1-start");
+    const headingEnd = container.querySelectorAll(".willem__h1-end");
+    const coverImageExtra = container.querySelectorAll(".willem__cover-image-extra");
+    const headerLetter = container.querySelectorAll(".willem__letter-white");
+    const navLinks = container.querySelectorAll(".willen-nav a, .osmo-credits__p");
+    
+    // GSAP Timeline
+    const tl = window.gsap.timeline({
+      defaults: {
+        ease: "expo.inOut",
+      },
+      onStart: () => {
+        container.classList.remove('is--hidden');
+      }
+    });
+    
+    // Animación
+    if (loadingLetter.length) {
+      tl.from(loadingLetter, {
+        yPercent: 100,
+        stagger: 0.025,
+        duration: 1.25
+      });
+    }
+    
+    if (box.length) {
+      tl.fromTo(box, {
+        width: "0em",
+      }, {
+        width: "1em",
+        duration: 1.25
+      }, "< 1.25");
+    }
+    
+    if (growingImage.length) {
+      tl.fromTo(growingImage, {
+        width: "0%",
+      }, {
+        width: "100%",
+        duration: 1.25
+      }, "<");
+    }
+    
+    if (headingStart.length) {
+      tl.fromTo(headingStart, {
+        x: "0em",
+      }, {
+        x: "-0.05em",
+        duration: 1.25
+      }, "<");
+    }
+    
+    if (headingEnd.length) {
+      tl.fromTo(headingEnd, {
+        x: "0em",
+      }, {
+        x: "0.05em",
+        duration: 1.25
+      }, "<");
+    }
+    
+    if (coverImageExtra.length) {
+      tl.fromTo(coverImageExtra, {
+        opacity: 1,
+      }, {
+        opacity: 0,
+        duration: 0.05,
+        ease: "none",
+        stagger: 0.5
+      }, "-=0.05");
+    }
+    
+    if (growingImage.length) {
+      tl.to(growingImage, {
+        width: "100vw",
+        height: "100dvh",
+        duration: 2
+      }, "< 1.25");
+    }
+    
+    if (box.length) {
+      tl.to(box, {
+        width: "110vw",
+        duration: 2
+      }, "<");
+    }
+    
+    if (headerLetter.length) {
+      tl.from(headerLetter, {
+        yPercent: 100,
+        duration: 1.25,
+        ease: "expo.out",
+        stagger: 0.025
+      }, "< 1.2");
+    }
+    
+    if (navLinks.length) {
+      tl.from(navLinks, {
+        yPercent: 100,
+        duration: 1.25,
+        ease: "expo.out",
+        stagger: 0.1
+      }, "<");
+    }
+  };
+
+  // Cargar GSAP de forma segura
+  const loadGSAP = () => {
+    // Verificar si estamos en el navegador
+    if (typeof window === 'undefined') return;
+    
+    // Si GSAP ya está cargado, iniciar animación
+    if (window.gsap) {
+      initAnimation();
+      return;
+    }
+    
+    // Cargar GSAP
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js';
+    script.onload = initAnimation;
+    script.onerror = (error) => {
+      console.error('Error cargando GSAP:', error);
+    };
+    document.head.appendChild(script);
+  };
+
+  // Iniciar cuando el DOM esté listo
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadGSAP);
+    } else {
+      loadGSAP();
+    }
+  }
+</script>
+
+<style>
+  /* Estilos específicos del componente Willem */
+  .willem-header {
+    position: relative;
+    overflow: hidden;
+    background-color: #201d1d;
+    color: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  .willem-header.is--loading.is--hidden {
+    display: none;
+  }
+  
+  .willem-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  
+  .willem__h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12.5em;
+    font-weight: 500;
+    line-height: 0.75;
+    white-space: nowrap;
+  }
+  
+  .willem__h1-start,
+  .willem__h1-end {
+    display: flex;
+    overflow: hidden;
+  }
+  
+.willem__h1-start {
+  justify-content: flex-end;
+  width: 1.9em; /* Aumentado para letras más anchas */
+}
+
+.willem__h1-end {
+  justify-content: flex-start;
+  width: 1.9em; /* Aumentado para letras más anchas */
+}
+  
+  .willem__letter {
+    display: block;
+    position: relative;
+  }
+  
+  .willem-loader__box {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 0;
+    position: relative;
+  }
+  
+.willem-loader__box-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 1em;
+  height: 95%;
+  position: relative;
+}
+  
+.willem__growing-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    overflow: hidden;
+    /* Temporal: fondo para ver el contenedor */
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+
+  .willem__growing-image-wrap {
+    width: 100%;
+    min-width: 1em;
+    height: 100%;
+    position: absolute;
+    /* Temporal: fondo para ver el contenedor */
+    background-color: rgba(0, 255, 0, 0.5);
+  }
+  
+  .willem__cover-image,
+  .willem__cover-image-extra {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Temporal: borde para ver las imágenes */
+    border: 2px solid blue;
+  }
+  
+  .willem__cover-image-extra.is--1 { z-index: 3; }
+  .willem__cover-image-extra.is--2 { z-index: 2; }
+  .willem__cover-image-extra.is--3 { z-index: 1; }
+  
+  .willem-header__content {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 3em;
+    position: relative;
+  }
+  
+  .willem-header__top {
+    width: 100%;
+    position: relative;
+  }
+  
+  .willem-header__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .willen-nav {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .willem-nav__start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 50%;
+  }
+  
+  .willem-nav__end {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 50%;
+  }
+  
+  .willem-nav__links {
+    display: flex;
+    gap: 0.5em;
+  }
+  
+  .willem-nav__link {
+    color: #f4f4f4;
+    font-size: 1.3125em;
+    line-height: 1.3;
+    text-decoration: none;
+    position: relative;
+  }
+  
+  .willem__letter-white {
+    display: block;
+    position: relative;
+    color: #f4f4f4;
+  }
+  
+  .willem__letter-white.is--space {
+    margin-left: 0.25em;
+  }
+  
+  .osmo-credits__p {
+    pointer-events: auto;
+    text-align: center;
+    margin: 0;
+    font-size: 1.125em;
+    font-weight: 500;
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .osmo-credits__p-a {
+    color: #f4f4f4;
+    text-decoration: none;
+  }
+</style>

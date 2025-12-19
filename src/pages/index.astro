@@ -1,232 +1,53 @@
 ---
-import "../styles/global.css";
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro'; // Si usas layout
+import WillemAnimation from '../components/WillemAnimation.astro';
+import '../styles/global.css';
+
+// Si no tienes layout, puedes crear uno simple aquí
 ---
 
 <!DOCTYPE html>
-<html lang="es" class="bg-black text-white">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hicham Hachmi Tribak - Full Stack Developer</title>
-    <meta name="description" content="Portfolio de Hicham Hachmi Tribak. Proyectos, habilidades y contacto.">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Portfolio</title>
+  <!-- Preconectar para mejorar rendimiento -->
+  <link rel="preconnect" href="https://cdn.prod.website-files.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
 </head>
+<body>
+  <!-- Componente de animación -->
+  <WillemAnimation name="Hicham" />
+  
+  <!-- Contenido principal (se mostrará después de la animación) -->
+  <main id="main-content" style="opacity: 0; transition: opacity 0.5s ease;">
+    <section id="projects" style="padding: 2rem; min-height: 100vh; background: #f4f4f4; color: #201d1d;">
+      <h1>Proyectos</h1>
+      <p>Aquí van tus proyectos...</p>
+    </section>
+    
+    <section id="about" style="padding: 2rem; min-height: 100vh; background: #eaeaea; color: #201d1d;">
+      <h2>Sobre Mí</h2>
+      <p>Información sobre ti...</p>
+    </section>
+    
+    <section id="contact" style="padding: 2rem; min-height: 100vh; background: #f4f4f4; color: #201d1d;">
+      <h2>Contacto</h2>
+      <p>Información de contacto...</p>
+    </section>
+  </main>
 
-<body class="antialiased selection:bg-white selection:text-black overflow-x-hidden">
-    <header class="absolute top-0 z-50 w-full bg-transparent">
-        <div class="p-6 md:p-10 flex justify-between items-center w-full text-black">
-            <div class="font-medium uppercase tracking-wider text-xs md:text-sm">
-                <span>Desarrollador Web</span>
-            </div>
-            <nav>
-                <ul class="flex gap-6 text-xs md:text-sm font-medium uppercase">
-                    {['Sobre Mi', 'Proyectos', 'Contacto'].map((item) => (
-                        <li>
-                            <a class="group relative block h-fit overflow-hidden cursor-pointer select-none" href={`/#${item.replace(" ", "")}`}>
-                                <span class="block transition-transform duration-[0.6s] ease-[cubic-bezier(.19,1,.22,1)] group-hover:-translate-y-full">{item}</span>
-                                <span aria-hidden="true" class="absolute top-0 left-0 block transition-transform duration-[0.6s] ease-[cubic-bezier(.19,1,.22,1)] translate-y-full group-hover:translate-y-0">{item}</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main class="relative bg-white text-black">
-        <section id="Hero" class="hero-section relative h-screen flex flex-col justify-end p-6 md:p-10 pb-16 overflow-hidden">
-            <div class="relative flex w-full flex-col gap-y-10">
-                <h1 class="w-full">
-                    <div class="hidden md:block">
-                        <svg viewBox="0 0 1700 160" class="w-full h-auto" preserveAspectRatio="xMidYMid meet">
-                            <text x="50%" y="130" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="150" fill="currentColor" class="desktop-name opacity-0">
-                                HICHAM H.T.
-                            </text>
-                        </svg>
-                    </div>
-                    <div class="md:hidden">
-                        <span class="text-4xl font-black uppercase leading-none block">Hicham H.T.</span>
-                    </div>
-                </h1>
-
-                <div class="grid w-full grid-cols-12 gap-y-8 md:items-center">
-                    <div class="col-span-12 md:col-span-4 flex flex-col gap-y-6">
-                        <p class="max-w-[30ch] text-lg font-medium leading-snug text-gray-400">
-                            Abierto a oportunidades mundiales. Experiencias digitales pulidas e intuitivas.
-                        </p>
-                        <a href="#Contact" class="group relative w-fit overflow-hidden rounded-full border border-white/20 px-6 py-2 uppercase font-bold text-sm transition-colors hover:bg-white hover:text-black">
-                            CONTACTO ↗
-                        </a>
-                    </div>
-                    <div class="col-span-12 md:col-span-4 flex justify-center">
-                        <div class="h-[25vh] md:h-[40vh] aspect-[3/4] overflow-hidden rounded-lg bg-zinc-800">
-                            <img src="/tu-foto.webp" alt="Hicham" class="hero-img h-full w-full object-cover grayscale contrast-125" />
-                        </div>
-                    </div>
-                    <div class="col-span-12 md:col-span-4 flex flex-col items-end justify-end self-end">
-                        <span class="text-xs font-mono uppercase text-gray-500">Disponible para trabajar</span>
-                        <span id="current-date" class="text-5xl md:text-7xl font-bold uppercase"></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="Services" class="relative z-20 w-full bg-black px-6 md:px-10 py-20">
-            <h2 class="text-6xl font-bold uppercase text-white mb-32 border-b border-white/20 pb-10">What I Do /</h2>
-
-            <div class="services-wrapper relative flex flex-col">
-                
-                <div class="service-item relative min-h-[70vh]"> 
-                    <div class="sticky top-[10vh] z-30 bg-black py-10 border-t border-white/10">
-                        <div class="flex items-center gap-8">
-                            <span class="text-2xl font-bold text-zinc-500 md:w-20">(01)</span>
-                            <h3 class="text-4xl md:text-7xl font-bold uppercase tracking-tighter">Full-Stack Development</h3>
-                        </div>
-                    </div>
-                    <div class="service-content grid grid-cols-12 gap-6 pt-10 pb-40">
-                        <div class="col-span-12 md:col-start-6 md:col-span-6">
-                            <p class="text-xl md:text-2xl text-zinc-400 font-medium leading-tight">
-                                I specialize in building full-stack web applications that are fast, reliable, and user-friendly. Usando tecnologías modernas para soluciones escalables.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-item relative min-h-[70vh]">
-                    <div class="sticky top-[calc(10vh+7rem)] z-20 bg-black py-10 border-t border-white/10">
-                        <div class="flex items-center gap-8">
-                            <span class="text-2xl font-bold text-zinc-500 md:w-20">(02)</span>
-                            <h3 class="text-4xl md:text-7xl font-bold uppercase tracking-tighter">UI/UX & Frontend</h3>
-                        </div>
-                    </div>
-                    <div class="service-content grid grid-cols-12 gap-6 pt-10 pb-40">
-                        <div class="col-span-12 md:col-start-6 md:col-span-6">
-                            <p class="text-xl md:text-2xl text-zinc-400 font-medium leading-tight">
-                                Design is more than looks — it's about clarity and connection. Me enfoco en interfaces limpias, responsivas e intuitivas en cualquier dispositivo.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-item relative min-h-[60vh]">
-                    <div class="sticky top-[calc(10vh+14rem)] z-10 bg-black py-10 border-t border-white/10">
-                        <div class="flex items-center gap-8">
-                            <span class="text-2xl font-bold text-zinc-500 md:w-20">(03)</span>
-                            <h3 class="text-4xl md:text-7xl font-bold uppercase tracking-tighter">Optimization</h3>
-                        </div>
-                    </div>
-                    <div class="service-content grid grid-cols-12 gap-6 pt-10 pb-40">
-                        <div class="col-span-12 md:col-start-6 md:col-span-6">
-                            <p class="text-xl md:text-2xl text-zinc-400 font-medium leading-tight">
-                                Transformando entradas complejas en sistemas confiables y usables. Rendimiento y SEO como prioridad absoluta.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="relative h-[60vh] md:h-[80vh]" style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);">
-            <div class="fixed bottom-0 left-0 h-[60vh] md:h-[80vh] w-full bg-zinc-950 flex flex-col justify-between p-6 md:p-10 text-white">
-                <div class="grid grid-cols-12 gap-y-10 w-full pt-20">
-                    <div class="col-span-12 md:col-span-6">
-                        <h2 class="text-5xl md:text-8xl font-bold uppercase tracking-tighter">
-                            ¿Hablamos?<br/>
-                            <span class="text-zinc-700 hover:text-white transition-colors cursor-pointer">Get in touch.</span>
-                        </h2>
-                    </div>
-                    <div class="col-span-12 md:col-span-6 flex flex-col md:items-end gap-y-4">
-                        <p class="text-zinc-500 font-mono text-sm uppercase">Socials</p>
-                        <ul class="flex flex-col md:items-end gap-y-2 text-xl font-medium">
-                            <li><a href="#" class="hover:line-through">LinkedIn</a></li>
-                            <li><a href="#" class="hover:line-through">GitHub</a></li>
-                            <li><a href="#" class="hover:line-through">Twitter / X</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row justify-between items-end border-t border-white/10 pt-10 pb-6">
-                    <span class="text-zinc-600 text-xs font-mono uppercase">© 2025 Hicham H.T.</span>
-                    <span class="text-zinc-600 text-xs font-mono uppercase">Local Time: <span id="local-time">--:--</span></span>
-                </div>
-            </div>
-        </footer>
-    </main>
-
-<script>
-    import Lenis from 'lenis';
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const initAnimations = () => {
-        // 1. Smooth Scroll (Lenis)
-        const lenis = new Lenis();
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
-
-        // 2. Fecha y Hora
-        const updateTimeStrings = () => {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
-            const dateStr = now.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }).replace(' ', "'");
-            
-            const timeEl = document.getElementById('local-time');
-            const dateEl = document.getElementById('current-date');
-            if(timeEl) timeEl.textContent = timeStr;
-            if(dateEl) dateEl.textContent = dateStr;
-        };
-        updateTimeStrings();
-        setInterval(updateTimeStrings, 1000);
-
-        // 3. Hero Entrance
-        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.fromTo(".desktop-name", { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, delay: 0.5 })
-          .from(".hero-img", { scale: 1.3, opacity: 0, duration: 2 }, "-=1")
-          .from("#current-date", { opacity: 0, y: 20 }, "-=1.2");
-
-        // 4. Stacking Services Logic
-        const items = gsap.utils.toArray(".service-item") as HTMLElement[];
-
-        items.forEach((item, i) => {
-            const content = item.querySelector(".service-content");
-            const nextItem = items[i + 1];
-
-            // Si hay un siguiente servicio, hacemos que el contenido de este se desvanezca al llegar el próximo
-            if (nextItem && content) {
-                gsap.to(content, {
-                    opacity: 0,
-                    y: -40,
-                    scrollTrigger: {
-                        trigger: nextItem,
-                        start: "top 90%", // Empieza a desvanecerse antes de que el siguiente título llegue a su sticky
-                        end: "top 50%",
-                        scrub: true,
-                    }
-                });
-            }
-        });
-
-		const hero = document.querySelector('.hero-section');
-
-if (hero) {
-    gsap.to(hero, {
-        opacity: 0,
-        y: -100, // Lo mueve un poco hacia arriba para dar sensación de profundidad
-        scale: 0.95, // Opcional: un ligero encogimiento
-        scrollTrigger: {
-            trigger: "#Services", // Se activa cuando la sección de servicios aparece
-            start: "top bottom",  // Empieza cuando el inicio de Services toca el final de la pantalla
-            end: "top 20%",     // Termina de desvanecerse cuando Services casi llega arriba
-            scrub: true,          // Vincula la animación directamente al movimiento del scroll
-        }
-    });
-}
-    };
-
-    document.addEventListener('DOMContentLoaded', initAnimations);
-</script>
+  <!-- Script para mostrar contenido después de la animación -->
+  <script>
+    // Esperar a que la animación termine (aproximadamente 6 segundos)
+    setTimeout(() => {
+      const mainContent = document.getElementById('main-content');
+      if (mainContent) {
+        mainContent.style.opacity = '1';
+      }
+    }, 6000);
+  </script>
 </body>
 </html>
