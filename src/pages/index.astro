@@ -2,8 +2,6 @@
 // src/pages/index.astro
 import HichamAnimation from '../components/HichamAnimation.astro';
 import '../styles/global.css';
-
-// Si no tienes layout, puedes crear uno simple aquí
 ---
 
 <!DOCTYPE html>
@@ -11,42 +9,93 @@ import '../styles/global.css';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hicham H.T. - Full Stack Developer</title>
-  <!-- Preconectar para mejorar rendimiento -->
-  <link rel="preconnect" href="https://cdn.prod.website-files.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <title>Hicham H.T. - Portfolio</title>
 </head>
-<body>
-  <!-- Componente de animación -->
+<body class="bg-[#f4f4f4] text-[#201d1d]">
+  
   <HichamAnimation name="Hicham" />
   
-  <!-- Contenido principal (se mostrará después de la animación) -->
-  <main id="main-content" style="opacity: 0; transition: opacity 0.5s ease;">
-    <section id="projects" style="padding: 2rem; min-height: 100vh; background: #f4f4f4; color: #201d1d;">
-      <h1>Proyectos</h1>
-      <p>Aquí van tus proyectos...</p>
-    </section>
+  <main id="main-content" class="opacity-0 invisible transition-opacity duration-1000">
     
-    <section id="about" style="padding: 2rem; min-height: 100vh; background: #eaeaea; color: #201d1d;">
-      <h2>Sobre Mí</h2>
-      <p>Información sobre ti...</p>
+    <section id="projects" class="px-8 md:px-16 py-24 border-t border-black/10">
+      <div class="flex justify-between items-end mb-12">
+        <h2 class="text-6xl md:text-8xl font-medium tracking-tighter">PROYECTOS</h2>
+        <span class="text-sm uppercase mb-4">(03)</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="project-card group cursor-pointer">
+          <div class="overflow-hidden aspect-video bg-gray-200 mb-4">
+             <img src="/api/placeholder/800/450" alt="Proyecto 1" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" />
+          </div>
+          <div class="flex justify-between items-start border-t border-black pt-4">
+            <h3 class="text-2xl italic">Nombre del Proyecto</h3>
+            <p class="text-sm uppercase">Diseño & Dev</p>
+          </div>
+        </div>
+        </div>
     </section>
-    
-    <section id="contact" style="padding: 2rem; min-height: 100vh; background: #f4f4f4; color: #201d1d;">
-      <h2>Contacto</h2>
-      <p>Información de contacto...</p>
+
+    <section id="about" class="px-8 md:px-16 py-32 bg-[#201d1d] text-[#f4f4f4]">
+      <div class="max-w-4xl">
+        <h2 class="text-sm uppercase mb-12 opacity-60">Sobre mí</h2>
+        <p class="text-3xl md:text-5xl leading-tight font-medium">
+          Soy un <span class="italic text-gray-400">Desarrollador Full Stack</span> apasionado por crear interfaces que se sienten vivas. Combino técnica y estética para resolver problemas digitales.
+        </p>
+      </div>
     </section>
+
+    <section id="contact" class="px-8 md:px-16 py-32 min-height-[80vh] flex flex-col justify-between">
+      <h2 class="text-[12vw] leading-[0.8] font-medium tracking-tighter">HABLEMOS.</h2>
+      
+      <div class="flex flex-col md:flex-row justify-between items-end mt-20">
+        <div class="text-2xl space-y-2">
+          <a href="mailto:hola@hicham.com" class="block hover:italic transition-all">hola@hicham.com</a>
+          <a href="#" class="block hover:italic transition-all">LinkedIn</a>
+        </div>
+        <p class="text-sm uppercase opacity-50 mt-8 md:mt-0">© 2024 Hicham H.T.</p>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Script para mostrar contenido después de la animación -->
   <script>
-    // Esperar a que la animación termine (aproximadamente 6 segundos)
-    setTimeout(() => {
-      const mainContent = document.getElementById('main-content');
-      if (mainContent) {
-        mainContent.style.opacity = '1';
-      }
-    }, 6000);
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Revelar el contenido tras la intro
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const main = document.getElementById('main-content');
+        main.classList.remove('opacity-0', 'invisible');
+        
+        // 2. Animación de revelado de proyectos al hacer scroll
+        gsap.utils.toArray('.project-card').forEach((card) => {
+          gsap.from(card, {
+            y: 100,
+            opacity: 0,
+            duration: 1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%",
+            }
+          });
+        });
+      }, 6000); 
+    });
+
+    import Lenis from '@studio-freight/lenis'
+
+  const lenis = new Lenis()
+
+  function raf(time) {
+    lenis.raf(time)
+    requestAnimationFrame(raf)
+  }
+
+  requestAnimationFrame(raf)
   </script>
 </body>
 </html>
