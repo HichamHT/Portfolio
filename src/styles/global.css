@@ -42,6 +42,85 @@ html.lenis body {
   pointer-events: none;
 }
 
+/* Contenedor principal */
+.knowledge-container {
+  padding: 100px 5%;
+  background-color: black;
+}
+
+.knowledge-title {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+/* El contenedor de las tarjetas necesita espacio para el scroll */
+.stacking-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Las tarjetas se tocarán al apilarse */
+}
+
+/* El envoltorio que se queda pegado */
+.card-pin {
+  position: sticky;
+  /* Esto hace que cada tarjeta se pegue un poco más abajo que la anterior */
+  top: calc(10vh + (var(--index) * 20px)); 
+  padding-bottom: 15vh; /* Crea el espacio para que la siguiente tarjeta suba */
+  width: 100%;
+}
+
+/* La tarjeta física */
+.card-content {
+  background-color: #161616; /* Gris muy oscuro para contraste */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 32px;
+  padding: 60px;
+  min-height: 400px;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card-num {
+  font-family: monospace;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.card-h3 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.card-text {
+  color: #999;
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f4f4f4;
+}
+
+.card-list li {
+  margin-bottom: 0.5rem;
+}
 #main-content {
   position: relative;
   z-index: 10; /* Mayor que el header para que pase por encima */
