@@ -1,5 +1,3 @@
-/* src/styles/global.css */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,7 +7,7 @@
 body {
   background-color: #f4f4f4;
   font-family: 'PP Neue Montreal', Arial, sans-serif;
-  color: #201d1d;
+  color: #f4f4f4;
   font-weight: 400;
   margin: 0;
   padding: 0;
@@ -21,6 +19,44 @@ a,
 button {
   text-decoration: none;
   color: inherit;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+#main-content {
+  position: relative;
+  z-index: 10; /* Mayor que el header para que pase por encima */
+  background-color: #f4f4f4; /* IMPORTANTE: Debe tener fondo para tapar el header */
+  margin-top: 100vh; /* Empuja el contenido hacia abajo una pantalla completa */
+  min-height: 100vh;
+}
+
+.section-card {
+  background-color: #000000;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 24px;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Disable Scroll on Loading - ACTUALIZADO a hicham */

@@ -1,52 +1,103 @@
 ---
 // src/pages/index.astro
-import HichamAnimation from '../components/HichamAnimation.astro';
-import '../styles/global.css';
-
-// Si no tienes layout, puedes crear uno simple aquí
+import HichamAnimation from "../components/HichamAnimation.astro";
+import "../styles/global.css";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hicham H.T. - Full Stack Developer</title>
-  <!-- Preconectar para mejorar rendimiento -->
-  <link rel="preconnect" href="https://cdn.prod.website-files.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-</head>
-<body>
-  <!-- Componente de animación -->
-  <HichamAnimation name="Hicham" />
-  
-  <!-- Contenido principal (se mostrará después de la animación) -->
-  <main id="main-content" style="opacity: 0; transition: opacity 0.5s ease;">
-    <section id="projects" style="padding: 2rem; min-height: 100vh; background: #f4f4f4; color: #201d1d;">
-      <h1>Proyectos</h1>
-      <p>Aquí van tus proyectos...</p>
-    </section>
-    
-    <section id="about" style="padding: 2rem; min-height: 100vh; background: #eaeaea; color: #201d1d;">
-      <h2>Sobre Mí</h2>
-      <p>Información sobre ti...</p>
-    </section>
-    
-    <section id="contact" style="padding: 2rem; min-height: 100vh; background: #f4f4f4; color: #201d1d;">
-      <h2>Contacto</h2>
-      <p>Información de contacto...</p>
-    </section>
-  </main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hicham H.T. - Full Stack Developer</title>
+  </head>
+  <body class="bg-gray-100 overflow-x-hidden">
+    <HichamAnimation name="Hicham" />
 
-  <!-- Script para mostrar contenido después de la animación -->
-  <script>
-    // Esperar a que la animación termine (aproximadamente 6 segundos)
-    setTimeout(() => {
-      const mainContent = document.getElementById('main-content');
-      if (mainContent) {
-        mainContent.style.opacity = '1';
-      }
-    }, 6000);
-  </script>
-</body>
+    <main
+      id="main-content"
+      class="opacity-0 invisible transition-all duration-1000 ease-in-out p-4 md:p-10 space-y-12"
+    >
+      <div class="section-card">
+        <section
+          id="projects"
+          style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;"
+        >
+          <h1>Proyectos</h1>
+          <p>Aquí van tus proyectos...</p>
+        </section>
+
+        <section
+          id="about"
+          style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;"
+        >
+          <h2>Sobre Mí</h2>
+          <p>Información sobre ti...</p>
+        </section>
+
+        <section
+          id="contact"
+          style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;"
+        >
+          <h2>Contacto</h2>
+          <p>Información de contacto...</p>
+        </section>
+      </div>
+    </main>
+
+    <script>
+  import Lenis from 'lenis';
+
+  // 1. Inicialización de Lenis
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+
+  // Ciclo de animación (RAF) para que Lenis funcione
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  // 2. Bloqueo inicial
+  // Evitamos que el usuario haga scroll durante la intro de 6.5s
+  lenis.stop();
+
+  // 3. Lógica tras terminar la animación (6.5 segundos)
+  setTimeout(() => {
+    const mainContent = document.getElementById("main-content");
+    if (mainContent) {
+      mainContent.classList.remove("opacity-0", "invisible");
+      mainContent.classList.add("opacity-100");
+      
+      // Permitimos el scroll de nuevo
+      lenis.start();
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, 6500);
+
+  // 4. Efecto de Fade Out vinculado a Lenis
+  // Usamos el evento 'scroll' de Lenis en lugar del nativo para mayor suavidad
+  lenis.on('scroll', ({ scroll }: { scroll: number }) => {
+    const header = document.querySelector('.hicham-header') as HTMLElement;
+    if (!header) return;
+
+    const windowHeight = window.innerHeight;
+    
+    // El fade out se completa al llegar al 80% del alto de pantalla
+    const opacity = 1 - (scroll / (windowHeight * 0.8));
+    const scale = 1 - (scroll / 5000);
+    
+    if (opacity >= 0) {
+      header.style.opacity = opacity.toString();
+      header.style.transform = `scale(${scale})`;
+    } else {
+      header.style.opacity = "0";
+    }
+  });
+</script>
+  </body>
 </html>
