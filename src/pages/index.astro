@@ -1,5 +1,4 @@
 ---
-// src/pages/index.astro
 import HichamAnimation from "../components/HichamAnimation.astro";
 import "../styles/global.css";
 ---
@@ -30,9 +29,7 @@ import "../styles/global.css";
                   <h3 class="card-h3">Full-Stack Development</h3>
                 </div>
                 <div class="card-body-content">
-                  <p class="card-text">
-                    From frontend interactions to backend APIs...
-                  </p>
+                  <p class="card-text">From frontend interactions to backend APIs...</p>
                   <ul class="card-list">
                     <li>React, Node.js, Express.js</li>
                     <li>REST APIs, Firebase, Docker</li>
@@ -48,9 +45,7 @@ import "../styles/global.css";
                   <h3 class="card-h3">UI/UX & Frontend</h3>
                 </div>
                 <div class="card-body-content">
-                  <p class="card-text">
-                    Design is more than looks — it’s about clarity and connection.
-                  </p>
+                  <p class="card-text">Design is more than looks — it’s about clarity and connection.</p>
                   <ul class="card-list">
                     <li>NextJs, TailwindCSS, GSAP</li>
                     <li>Figma to Code</li>
@@ -66,9 +61,7 @@ import "../styles/global.css";
                   <h3 class="card-h3">Optimization</h3>
                 </div>
                 <div class="card-body-content">
-                  <p class="card-text">
-                    Turning complex raw inputs into reliable, usable systems.
-                  </p>
+                  <p class="card-text">Turning complex raw inputs into reliable, usable systems.</p>
                   <ul class="card-list">
                     <li>Data Structures & Algorithms</li>
                     <li>DBMS, OOP, OS Fundamentals</li>
@@ -79,26 +72,20 @@ import "../styles/global.css";
           </div>
         </section>
 
-        <section
-          id="projects"
-          style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;"
-        >
+        <section 
+          id="projects" 
+          style="position: relative; z-index: 100; background: black; margin-top: 0; padding-top: 15vh; min-height: 100vh;"
+        > 
           <h1>Proyectos</h1>
           <p>Aquí van tus proyectos...</p>
         </section>
 
-        <section
-          id="about"
-          style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;"
-        >
+        <section id="about" style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;">
           <h2>Sobre Mí</h2>
           <p>Información sobre ti...</p>
         </section>
 
-        <section
-          id="contact"
-          style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;"
-        >
+        <section id="contact" style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;">
           <h2>Contacto</h2>
           <p>Información de contacto...</p>
         </section>
@@ -108,46 +95,34 @@ import "../styles/global.css";
     <script>
       import Lenis from "lenis";
 
-      // 1. Inicialización de Lenis
       const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });
 
-      // Ciclo de animación (RAF) para que Lenis funcione
       function raf(time: number) {
         lenis.raf(time);
         requestAnimationFrame(raf);
       }
       requestAnimationFrame(raf);
 
-      // 2. Bloqueo inicial
-      // Evitamos que el usuario haga scroll durante la intro de 6.5s
       lenis.stop();
 
-      // 3. Lógica tras terminar la animación (6.5 segundos)
       setTimeout(() => {
         const mainContent = document.getElementById("main-content");
         if (mainContent) {
           mainContent.classList.remove("opacity-0", "invisible");
           mainContent.classList.add("opacity-100");
-
-          // Permitimos el scroll de nuevo
           lenis.start();
           document.body.classList.remove("overflow-hidden");
         }
       }, 6500);
 
-      // 4. Efecto de Fade Out vinculado a Lenis
-      // Usamos el evento 'scroll' de Lenis en lugar del nativo para mayor suavidad
       lenis.on("scroll", ({ scroll }: { scroll: number }) => {
         const header = document.querySelector(".hicham-header") as HTMLElement;
         if (!header) return;
-
         const windowHeight = window.innerHeight;
-
-        // El fade out se completa al llegar al 80% del alto de pantalla
         const opacity = 1 - scroll / (windowHeight * 0.8);
         const scale = 1 - scroll / 5000;
 

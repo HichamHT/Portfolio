@@ -76,6 +76,8 @@ html.lenis body {
 .knowledge-container {
   padding: 100px 5%;
   background-color: black;
+  border-top-left-radius: 40px; 
+  border-top-right-radius: 40px;
 }
 
 .knowledge-title {
@@ -85,84 +87,87 @@ html.lenis body {
 }
 
 /* ==========================================================================
-   5. COMPONENTS: STACKING STICKY LIST (CORRECCIÓN DE CAPAS)
+   STACKING CARDS: EFECTO EMPUJE (PUSH)
    ========================================================================== */
 .stacking-cards {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  background-color: black;
 }
 
 .card-pin {
   position: sticky;
-  /* El escalonado de títulos */
-  top: calc(2vh + (var(--index) * 130px)); 
+  /* TODAS en top 0 para que la siguiente empuje a la anterior */
+  top: 0; 
   width: 100%;
-  margin-bottom: 40vh; 
-  /* Cuanto más bajo el índice, más "arriba" en capas para que tape a lo que sube */
-  z-index: var(--index); 
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Sin márgenes para que el contacto sea directo y haya empuje */
+  margin-bottom: 0;
+  z-index: var(--index);
+  overflow: hidden;
 }
 
 .card-content {
-  background-color: black; 
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 0;
+  background-color: black;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 5%;
 }
 
 .card-header {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  align-items: baseline;
-  padding: 25px 0;
-  /* IMPORTANTE: Este fondo negro tapa el texto de la propia tarjeta y 
-     de las siguientes cuando suben */
-  background-color: black; 
-  position: relative;
-  z-index: 5;
+  margin-bottom: 2rem;
 }
 
 .card-num {
-  font-family: 'PP Neue Montreal', sans-serif;
-  font-size: 2.5rem;
-  color: white;
-  line-height: 1;
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 1rem;
 }
 
 .card-h3 {
-  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-size: clamp(2.5rem, 5vw, 5rem);
   font-weight: 500;
-  color: white;
-  margin: 0;
   line-height: 1;
 }
 
 .card-body-content {
-  padding-left: 120px;
-  padding-bottom: 60px;
-  background-color: black;
-  /* Un z-index menor que el header para que el texto se meta "debajo" del título */
-  position: relative;
-  z-index: 1;
+  margin-top: auto;
+  padding-bottom: 10vh;
+  max-width: 800px;
 }
 
 .card-text {
+  font-size: 1.5rem;
   color: #888;
-  font-size: 1.3rem;
-  max-width: 700px;
-  line-height: 1.5;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+}
+
+.card-list {
+  list-style: none;
 }
 
 .card-list li {
+  font-size: 2rem;
+  padding: 1rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1.5rem 0;
-  font-size: 1.8rem;
-  color: white;
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
 }
 
+/* ==========================================================================
+   PROYECTOS Y SIGUIENTES
+   ========================================================================== */
+#projects {
+  position: relative;
+  z-index: 100;
+  background: black;
+  min-height: 100vh;
+  padding: 100px 5%;
+}
 /* ==========================================================================
    6. ANIMATIONS & LOADING STATES
    ========================================================================== */
