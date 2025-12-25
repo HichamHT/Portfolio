@@ -19,53 +19,65 @@ import "../styles/global.css";
       class="opacity-0 invisible transition-all duration-1000 ease-in-out p-4 md:p-10 space-y-12"
     >
       <div class="section-card">
-<section id="knowledge" class="knowledge-container">
-  <h2 class="knowledge-title">Conocimientos</h2>
-  
-  <div class="stacking-cards">
-    <div class="card-pin" style="--index: 1;">
-      <div class="card-content">
-        <div class="card-header">
-          <span class="card-num">(01)</span>
-          <h3 class="card-h3">Full-Stack Development</h3>
-        </div>
-        <p class="card-text">From frontend interactions to backend APIs, I build complete web solutions.</p>
-        <ul class="card-list">
-          <li>React, Node.js, Express.js</li>
-          <li>REST APIs, Firebase, Docker</li>
-        </ul>
-      </div>
-    </div>
+        <section id="knowledge" class="knowledge-container">
+          <h2 class="knowledge-title">CONOCIMIENTOS</h2>
 
-    <div class="card-pin" style="--index: 2;">
-      <div class="card-content">
-        <div class="card-header">
-          <span class="card-num">(02)</span>
-          <h3 class="card-h3">UI/UX & Frontend</h3>
-        </div>
-        <p class="card-text">Design is more than looks — it’s about clarity and connection.</p>
-        <ul class="card-list">
-          <li>NextJs, TailwindCSS, GSAP</li>
-          <li>Figma to Code</li>
-        </ul>
-      </div>
-    </div>
+          <div class="stacking-cards">
+            <div class="card-pin" style="--index: 1;">
+              <div class="card-content">
+                <div class="card-header">
+                  <span class="card-num">(01)</span>
+                  <h3 class="card-h3">Full-Stack Development</h3>
+                </div>
+                <div class="card-body-content">
+                  <p class="card-text">
+                    From frontend interactions to backend APIs...
+                  </p>
+                  <ul class="card-list">
+                    <li>React, Node.js, Express.js</li>
+                    <li>REST APIs, Firebase, Docker</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-    <div class="card-pin" style="--index: 3;">
-      <div class="card-content">
-        <div class="card-header">
-          <span class="card-num">(03)</span>
-          <h3 class="card-h3">Optimization</h3>
-        </div>
-        <p class="card-text">Turning complex raw inputs into reliable, usable systems.</p>
-        <ul class="card-list">
-          <li>Data Structures & Algorithms</li>
-          <li>DBMS, OOP, OS Fundamentals</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+            <div class="card-pin" style="--index: 2;">
+              <div class="card-content">
+                <div class="card-header">
+                  <span class="card-num">(02)</span>
+                  <h3 class="card-h3">UI/UX & Frontend</h3>
+                </div>
+                <div class="card-body-content">
+                  <p class="card-text">
+                    Design is more than looks — it’s about clarity and connection.
+                  </p>
+                  <ul class="card-list">
+                    <li>NextJs, TailwindCSS, GSAP</li>
+                    <li>Figma to Code</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-pin" style="--index: 3;">
+              <div class="card-content">
+                <div class="card-header">
+                  <span class="card-num">(03)</span>
+                  <h3 class="card-h3">Optimization</h3>
+                </div>
+                <div class="card-body-content">
+                  <p class="card-text">
+                    Turning complex raw inputs into reliable, usable systems.
+                  </p>
+                  <ul class="card-list">
+                    <li>Data Structures & Algorithms</li>
+                    <li>DBMS, OOP, OS Fundamentals</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section
           id="projects"
@@ -94,58 +106,58 @@ import "../styles/global.css";
     </main>
 
     <script>
-  import Lenis from 'lenis';
+      import Lenis from "lenis";
 
-  // 1. Inicialización de Lenis
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-  });
+      // 1. Inicialización de Lenis
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
 
-  // Ciclo de animación (RAF) para que Lenis funcione
-  function raf(time: number) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
+      // Ciclo de animación (RAF) para que Lenis funcione
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
 
-  // 2. Bloqueo inicial
-  // Evitamos que el usuario haga scroll durante la intro de 6.5s
-  lenis.stop();
+      // 2. Bloqueo inicial
+      // Evitamos que el usuario haga scroll durante la intro de 6.5s
+      lenis.stop();
 
-  // 3. Lógica tras terminar la animación (6.5 segundos)
-  setTimeout(() => {
-    const mainContent = document.getElementById("main-content");
-    if (mainContent) {
-      mainContent.classList.remove("opacity-0", "invisible");
-      mainContent.classList.add("opacity-100");
-      
-      // Permitimos el scroll de nuevo
-      lenis.start();
-      document.body.classList.remove("overflow-hidden");
-    }
-  }, 6500);
+      // 3. Lógica tras terminar la animación (6.5 segundos)
+      setTimeout(() => {
+        const mainContent = document.getElementById("main-content");
+        if (mainContent) {
+          mainContent.classList.remove("opacity-0", "invisible");
+          mainContent.classList.add("opacity-100");
 
-  // 4. Efecto de Fade Out vinculado a Lenis
-  // Usamos el evento 'scroll' de Lenis en lugar del nativo para mayor suavidad
-  lenis.on('scroll', ({ scroll }: { scroll: number }) => {
-    const header = document.querySelector('.hicham-header') as HTMLElement;
-    if (!header) return;
+          // Permitimos el scroll de nuevo
+          lenis.start();
+          document.body.classList.remove("overflow-hidden");
+        }
+      }, 6500);
 
-    const windowHeight = window.innerHeight;
-    
-    // El fade out se completa al llegar al 80% del alto de pantalla
-    const opacity = 1 - (scroll / (windowHeight * 0.8));
-    const scale = 1 - (scroll / 5000);
-    
-    if (opacity >= 0) {
-      header.style.opacity = opacity.toString();
-      header.style.transform = `scale(${scale})`;
-    } else {
-      header.style.opacity = "0";
-    }
-  });
-</script>
+      // 4. Efecto de Fade Out vinculado a Lenis
+      // Usamos el evento 'scroll' de Lenis en lugar del nativo para mayor suavidad
+      lenis.on("scroll", ({ scroll }: { scroll: number }) => {
+        const header = document.querySelector(".hicham-header") as HTMLElement;
+        if (!header) return;
+
+        const windowHeight = window.innerHeight;
+
+        // El fade out se completa al llegar al 80% del alto de pantalla
+        const opacity = 1 - scroll / (windowHeight * 0.8);
+        const scale = 1 - scroll / 5000;
+
+        if (opacity >= 0) {
+          header.style.opacity = opacity.toString();
+          header.style.transform = `scale(${scale})`;
+        } else {
+          header.style.opacity = "0";
+        }
+      });
+    </script>
   </body>
 </html>

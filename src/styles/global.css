@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. RESET & BASE STYLES
+   ========================================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,6 +27,20 @@ button {
   color: inherit;
 }
 
+/* ==========================================================================
+   2. TYPOGRAPHY (Fonts)
+   ========================================================================== */
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('https://cdn.prod.website-files.com/6819ed8312518f61b84824df/6819ed8312518f61b84825ba_PPNeueMontreal-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   3. THIRD-PARTY LIBRARIES (Lenis Smooth Scroll)
+   ========================================================================== */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -45,118 +62,115 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Contenedor principal */
+/* ==========================================================================
+   4. LAYOUT & MAIN SECTIONS
+   ========================================================================== */
+#main-content {
+  position: relative;
+  z-index: 10;
+  background-color: #f4f4f4;
+  margin-top: 100vh;
+  min-height: 100vh;
+}
+
 .knowledge-container {
   padding: 100px 5%;
   background-color: black;
 }
 
 .knowledge-title {
-  font-size: 2.5rem;
+  font-size: 8rem;
   margin-bottom: 3rem;
   color: white;
 }
 
-/* El contenedor de las tarjetas necesita espacio para el scroll */
+/* ==========================================================================
+   5. COMPONENTS: STACKING STICKY LIST (CORRECCIÓN DE CAPAS)
+   ========================================================================== */
 .stacking-cards {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0; /* Las tarjetas se tocarán al apilarse */
 }
 
-/* El envoltorio que se queda pegado */
 .card-pin {
   position: sticky;
-  /* Esto hace que cada tarjeta se pegue un poco más abajo que la anterior */
-  top: calc(10vh + (var(--index) * 20px)); 
-  padding-bottom: 15vh; /* Crea el espacio para que la siguiente tarjeta suba */
+  /* El escalonado de títulos */
+  top: calc(2vh + (var(--index) * 130px)); 
   width: 100%;
+  margin-bottom: 40vh; 
+  /* Cuanto más bajo el índice, más "arriba" en capas para que tape a lo que sube */
+  z-index: var(--index); 
 }
 
-/* La tarjeta física */
 .card-content {
-  background-color: #161616; /* Gris muy oscuro para contraste */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 32px;
-  padding: 60px;
-  min-height: 400px;
-  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  background-color: black; 
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0;
 }
 
 .card-header {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: baseline;
+  padding: 25px 0;
+  /* IMPORTANTE: Este fondo negro tapa el texto de la propia tarjeta y 
+     de las siguientes cuando suben */
+  background-color: black; 
+  position: relative;
+  z-index: 5;
 }
 
 .card-num {
-  font-family: monospace;
-  color: #666;
-  font-size: 1.2rem;
+  font-family: 'PP Neue Montreal', sans-serif;
+  font-size: 2.5rem;
+  color: white;
+  line-height: 1;
 }
 
 .card-h3 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 500;
   color: white;
   margin: 0;
+  line-height: 1;
+}
+
+.card-body-content {
+  padding-left: 120px;
+  padding-bottom: 60px;
+  background-color: black;
+  /* Un z-index menor que el header para que el texto se meta "debajo" del título */
+  position: relative;
+  z-index: 1;
 }
 
 .card-text {
-  color: #999;
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin-bottom: 2rem;
-}
-
-.card-list {
-  list-style: none;
-  padding: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #f4f4f4;
+  color: #888;
+  font-size: 1.3rem;
+  max-width: 700px;
+  line-height: 1.5;
+  margin-bottom: 3rem;
 }
 
 .card-list li {
-  margin-bottom: 0.5rem;
-}
-#main-content {
-  position: relative;
-  z-index: 10; /* Mayor que el header para que pase por encima */
-  background-color: #f4f4f4; /* IMPORTANTE: Debe tener fondo para tapar el header */
-  margin-top: 100vh; /* Empuja el contenido hacia abajo una pantalla completa */
-  min-height: 100vh;
-}
-
-.section-card {
-  background-color: #000000;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  padding: 24px;
-  margin-bottom: 24px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 0;
+  font-size: 1.8rem;
+  color: white;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
 }
 
-/* Disable Scroll on Loading - ACTUALIZADO a hicham */
+/* ==========================================================================
+   6. ANIMATIONS & LOADING STATES
+   ========================================================================== */
 main:has(.hicham-header.is--loading) {
   height: 100dvh;
   overflow: hidden;
 }
 
-/* Fuente */
-@font-face {
-  font-family: 'PP Neue Montreal';
-  src: url('https://cdn.prod.website-files.com/6819ed8312518f61b84824df/6819ed8312518f61b84825ba_PPNeueMontreal-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Estilos adicionales para cuando termine la animación - ACTUALIZADO */
 .hicham-header:not(.is--loading) ~ * {
   opacity: 0;
   animation: fadeIn 0.5s ease forwards 0.5s;
