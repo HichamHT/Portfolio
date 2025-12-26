@@ -11,25 +11,13 @@ body {
   background-color: #f4f4f4;
   font-family: 'PP Neue Montreal', Arial, sans-serif;
   color: #f4f4f4;
-  font-weight: 400;
   margin: 0;
   padding: 0;
   overscroll-behavior: none;
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
-a,
-button {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* ==========================================================================
-   2. TYPOGRAPHY (Fonts)
-   ========================================================================== */
+/* ... (Fuentes y Lenis se mantienen igual) ... */
 @font-face {
   font-family: 'PP Neue Montreal';
   src: url('https://cdn.prod.website-files.com/6819ed8312518f61b84824df/6819ed8312518f61b84825ba_PPNeueMontreal-Medium.woff2') format('woff2');
@@ -38,29 +26,9 @@ button {
   font-display: swap;
 }
 
-/* ==========================================================================
-   3. THIRD-PARTY LIBRARIES (Lenis Smooth Scroll)
-   ========================================================================== */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
 
 /* ==========================================================================
    4. LAYOUT & MAIN SECTIONS
@@ -68,22 +36,42 @@ html.lenis body {
 #main-content {
   position: relative;
   z-index: 10;
-  background-color: #f4f4f4;
   margin-top: 100vh;
   min-height: 100vh;
+  background-color: transparent;
 }
 
 .knowledge-container {
-  padding: 100px 5%;
   background-color: black;
   border-top-left-radius: 40px; 
   border-top-right-radius: 40px;
+  padding: 100px 5% 0 5%;
+  position: relative;
+}
+
+/* CABECERA ESCALONADA */
+.knowledge-header {
+  display: flex;
+  flex-direction: column; /* Título arriba, texto abajo */
+  width: 100%;
+  margin-bottom: 100px;
 }
 
 .knowledge-title {
-  font-size: 8rem;
-  margin-bottom: 3rem;
+  font-size: clamp(3rem, 8vw, 8rem);
   color: white;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.knowledge-intro-text {
+  font-size: 1.4rem;
+  color: #888;
+  max-width: 550px;
+  line-height: 1.5;
+  align-self: flex-end; /* Lo empuja a la derecha */
+  margin-top: 2rem;    /* Crea el efecto de "un piso más abajo" */
+  text-align: left;    /* El texto en sí alineado a la izquierda */
 }
 
 /* ==========================================================================
@@ -97,14 +85,11 @@ html.lenis body {
 
 .card-pin {
   position: sticky;
-  /* TODAS en top 0 para que la siguiente empuje a la anterior */
-  top: 0; 
+  top: 0;
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  /* Sin márgenes para que el contacto sea directo y haya empuje */
-  margin-bottom: 0;
   z-index: var(--index);
   overflow: hidden;
 }
@@ -113,25 +98,15 @@ html.lenis body {
   background-color: black;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 40px 5%;
-}
-
-.card-header {
-  margin-bottom: 2rem;
-}
-
-.card-num {
-  font-size: 2rem;
-  display: block;
-  margin-bottom: 1rem;
+  padding: 40px 0;
 }
 
 .card-h3 {
   font-size: clamp(2.5rem, 5vw, 5rem);
   font-weight: 500;
+  color: white;
   line-height: 1;
 }
 
@@ -142,47 +117,24 @@ html.lenis body {
 }
 
 .card-text {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #888;
   margin-bottom: 2rem;
-  line-height: 1.4;
-}
-
-.card-list {
-  list-style: none;
 }
 
 .card-list li {
-  font-size: 2rem;
-  padding: 1rem 0;
+  font-size: 1.8rem;
+  color: white;
+  padding: 1.5rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  list-style: none;
 }
 
-/* ==========================================================================
-   PROYECTOS Y SIGUIENTES
-   ========================================================================== */
-#projects {
+/* OTROS */
+#projects, #about, #contact {
   position: relative;
   z-index: 100;
   background: black;
   min-height: 100vh;
   padding: 100px 5%;
-}
-/* ==========================================================================
-   6. ANIMATIONS & LOADING STATES
-   ========================================================================== */
-main:has(.hicham-header.is--loading) {
-  height: 100dvh;
-  overflow: hidden;
-}
-
-.hicham-header:not(.is--loading) ~ * {
-  opacity: 0;
-  animation: fadeIn 0.5s ease forwards 0.5s;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
 }

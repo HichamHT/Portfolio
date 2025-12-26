@@ -15,18 +15,24 @@ import "../styles/global.css";
 
     <main
       id="main-content"
-      class="opacity-0 invisible transition-all duration-1000 ease-in-out p-4 md:p-10 space-y-12"
+      class="opacity-0 invisible transition-all duration-1000 ease-in-out"
     >
       <div class="section-card">
         <section id="knowledge" class="knowledge-container">
-          <h2 class="knowledge-title">CONOCIMIENTOS</h2>
+          
+          <div class="knowledge-header">
+            <h2 class="knowledge-title">CONOCIMIENTOS</h2>
+            <p class="knowledge-intro-text">
+              Me especializo en el desarrollo de aplicaciones web full-stack que son rápidas, confiables y fáciles de usar. Con una base sólida tanto en tecnologías frontend como backend, ayudo a materializar ideas, ya sea para una empresa, una startup o un equipo de producto.
+            </p>
+          </div>
 
           <div class="stacking-cards">
             <div class="card-pin" style="--index: 1;">
               <div class="card-content">
                 <div class="card-header">
                   <span class="card-num">(01)</span>
-                  <h3 class="card-h3">Full-Stack Development</h3>
+                  <h3 class="card-h3">Desarrollo Full-Stack</h3>
                 </div>
                 <div class="card-body-content">
                   <p class="card-text">From frontend interactions to backend APIs...</p>
@@ -72,20 +78,17 @@ import "../styles/global.css";
           </div>
         </section>
 
-        <section 
-          id="projects" 
-          style="position: relative; z-index: 100; background: black; margin-top: 0; padding-top: 15vh; min-height: 100vh;"
-        > 
+        <section id="projects"> 
           <h1>Proyectos</h1>
           <p>Aquí van tus proyectos...</p>
         </section>
 
-        <section id="about" style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;">
+        <section id="about">
           <h2>Sobre Mí</h2>
           <p>Información sobre ti...</p>
         </section>
 
-        <section id="contact" style="padding: 2rem; min-height: 100vh; background: black; color: #f4f4f4;">
+        <section id="contact">
           <h2>Contacto</h2>
           <p>Información de contacto...</p>
         </section>
@@ -95,6 +98,7 @@ import "../styles/global.css";
     <script>
       import Lenis from "lenis";
 
+      // Inicialización de Lenis
       const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -107,6 +111,7 @@ import "../styles/global.css";
       }
       requestAnimationFrame(raf);
 
+      // Bloqueo inicial durante intro
       lenis.stop();
 
       setTimeout(() => {
@@ -119,9 +124,11 @@ import "../styles/global.css";
         }
       }, 6500);
 
+      // Fade out del header vinculado al scroll
       lenis.on("scroll", ({ scroll }: { scroll: number }) => {
         const header = document.querySelector(".hicham-header") as HTMLElement;
         if (!header) return;
+
         const windowHeight = window.innerHeight;
         const opacity = 1 - scroll / (windowHeight * 0.8);
         const scale = 1 - scroll / 5000;
