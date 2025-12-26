@@ -17,7 +17,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ... (Fuentes y Lenis se mantienen igual) ... */
 @font-face {
   font-family: 'PP Neue Montreal';
   src: url('https://cdn.prod.website-files.com/6819ed8312518f61b84824df/6819ed8312518f61b84825ba_PPNeueMontreal-Medium.woff2') format('woff2');
@@ -45,45 +44,47 @@ html.lenis, html.lenis body { height: auto; }
   background-color: black;
   border-top-left-radius: 40px; 
   border-top-right-radius: 40px;
-  padding: 100px 5% 0 5%;
+  padding: 100px 5% 0 2%;
   position: relative;
 }
 
 /* CABECERA ESCALONADA */
 .knowledge-header {
   display: flex;
-  flex-direction: column; /* Título arriba, texto abajo */
+  flex-direction: column;
   width: 100%;
   margin-bottom: 100px;
+  padding-left: 0%; 
 }
 
 .knowledge-title {
-  font-size: clamp(3rem, 8vw, 8rem);
+  font-size: clamp(3.5rem, 9vw, 8.5rem); 
   color: white;
-  line-height: 1;
+  line-height: 0.95;
   text-transform: uppercase;
+  letter-spacing: -0.02em;
 }
 
 .knowledge-intro-text {
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem); 
   color: #888;
-  max-width: 550px;
-  line-height: 1.5;
-  align-self: flex-end; /* Lo empuja a la derecha */
-  margin-top: 2rem;    /* Crea el efecto de "un piso más abajo" */
-  text-align: left;    /* El texto en sí alineado a la izquierda */
+  max-width: 480px; 
+  line-height: 1.45;
+  align-self: flex-end;
+  margin-top: 2.5rem;
+  text-align: left;
 }
 
 /* ==========================================================================
-   STACKING CARDS: EFECTO EMPUJE (PUSH)
+   KNOWLEDGE STACKING CARDS (ENCAPSULADAS)
    ========================================================================== */
-.stacking-cards {
+.knowledge-stacking-cards {
   position: relative;
   width: 100%;
   background-color: black;
 }
 
-.card-pin {
+.knowledge-card-pin {
   position: sticky;
   top: 0;
   width: 100%;
@@ -94,40 +95,79 @@ html.lenis, html.lenis body { height: auto; }
   overflow: hidden;
 }
 
-.card-content {
+.knowledge-card-content {
   background-color: black;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 40px 0;
+  display: flex; 
+  flex-direction: row;
+  padding: 20px 0; 
+  gap: 60px; 
 }
 
-.card-h3 {
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 500;
+/* Columna Izquierda (Número) */
+.knowledge-card-header {
+  flex: 0 0 25%; 
+}
+
+.knowledge-card-num {
+  font-size: clamp(2rem, 4vw, 4rem);
   color: white;
+  font-weight: 700;
   line-height: 1;
 }
 
-.card-body-content {
-  margin-top: auto;
-  padding-bottom: 10vh;
-  max-width: 800px;
+/* Columna Derecha (Contenido) */
+.knowledge-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 17%;
 }
 
-.card-text {
-  font-size: 1.4rem;
-  color: #888;
-  margin-bottom: 2rem;
-}
-
-.card-list li {
-  font-size: 1.8rem;
+.knowledge-card-h3 {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 700;
   color: white;
-  padding: 1.5rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  line-height: 1;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.knowledge-card-text {
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  color: #888;
+  margin-bottom: 3.5rem;
+  max-width: 680px;
+  line-height: 1.4;
+}
+
+.knowledge-card-list {
   list-style: none;
+  width: 100%;
+}
+
+.knowledge-card-list li {
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  color: white;
+  padding: 2.2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .knowledge-card-header { flex: 0 0 20%; }
+}
+
+@media (max-width: 768px) {
+  .knowledge-card-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .knowledge-card-header {
+    margin-bottom: 1rem;
+  }
 }
 
 /* OTROS */
@@ -138,3 +178,4 @@ html.lenis, html.lenis body { height: auto; }
   min-height: 100vh;
   padding: 100px 5%;
 }
+h1, h2 { color: white; }

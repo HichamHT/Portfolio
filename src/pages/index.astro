@@ -27,16 +27,16 @@ import "../styles/global.css";
             </p>
           </div>
 
-          <div class="stacking-cards">
-            <div class="card-pin" style="--index: 1;">
-              <div class="card-content">
-                <div class="card-header">
-                  <span class="card-num">(01)</span>
-                  <h3 class="card-h3">Desarrollo Full-Stack</h3>
+          <div class="knowledge-stacking-cards">
+            <div class="knowledge-card-pin" style="--index: 1;">
+              <div class="knowledge-card-content">
+                <div class="knowledge-card-header">
+                  <span class="knowledge-card-num">(01)</span>
                 </div>
-                <div class="card-body-content">
-                  <p class="card-text">From frontend interactions to backend APIs...</p>
-                  <ul class="card-list">
+                <div class="knowledge-card-body">
+                  <h3 class="knowledge-card-h3">Desarrollo Full-Stack</h3>
+                  <p class="knowledge-card-text">From frontend interactions to backend APIs...</p>
+                  <ul class="knowledge-card-list">
                     <li>React, Node.js, Express.js</li>
                     <li>REST APIs, Firebase, Docker</li>
                   </ul>
@@ -44,15 +44,15 @@ import "../styles/global.css";
               </div>
             </div>
 
-            <div class="card-pin" style="--index: 2;">
-              <div class="card-content">
-                <div class="card-header">
-                  <span class="card-num">(02)</span>
-                  <h3 class="card-h3">UI/UX & Frontend</h3>
+            <div class="knowledge-card-pin" style="--index: 2;">
+              <div class="knowledge-card-content">
+                <div class="knowledge-card-header">
+                  <span class="knowledge-card-num">(02)</span>
                 </div>
-                <div class="card-body-content">
-                  <p class="card-text">Design is more than looks — it’s about clarity and connection.</p>
-                  <ul class="card-list">
+                <div class="knowledge-card-body">
+                  <h3 class="knowledge-card-h3">UI/UX & Frontend</h3>
+                  <p class="knowledge-card-text">Design is more than looks — it’s about clarity and connection.</p>
+                  <ul class="knowledge-card-list">
                     <li>NextJs, TailwindCSS, GSAP</li>
                     <li>Figma to Code</li>
                   </ul>
@@ -60,15 +60,15 @@ import "../styles/global.css";
               </div>
             </div>
 
-            <div class="card-pin" style="--index: 3;">
-              <div class="card-content">
-                <div class="card-header">
-                  <span class="card-num">(03)</span>
-                  <h3 class="card-h3">Optimization</h3>
+            <div class="knowledge-card-pin" style="--index: 3;">
+              <div class="knowledge-card-content">
+                <div class="knowledge-card-header">
+                  <span class="knowledge-card-num">(03)</span>
                 </div>
-                <div class="card-body-content">
-                  <p class="card-text">Turning complex raw inputs into reliable, usable systems.</p>
-                  <ul class="card-list">
+                <div class="knowledge-card-body">
+                  <h3 class="knowledge-card-h3">Optimization</h3>
+                  <p class="knowledge-card-text">Turning complex raw inputs into reliable, usable systems.</p>
+                  <ul class="knowledge-card-list">
                     <li>Data Structures & Algorithms</li>
                     <li>DBMS, OOP, OS Fundamentals</li>
                   </ul>
@@ -98,7 +98,6 @@ import "../styles/global.css";
     <script>
       import Lenis from "lenis";
 
-      // Inicialización de Lenis
       const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -111,7 +110,6 @@ import "../styles/global.css";
       }
       requestAnimationFrame(raf);
 
-      // Bloqueo inicial durante intro
       lenis.stop();
 
       setTimeout(() => {
@@ -123,23 +121,6 @@ import "../styles/global.css";
           document.body.classList.remove("overflow-hidden");
         }
       }, 6500);
-
-      // Fade out del header vinculado al scroll
-      lenis.on("scroll", ({ scroll }: { scroll: number }) => {
-        const header = document.querySelector(".hicham-header") as HTMLElement;
-        if (!header) return;
-
-        const windowHeight = window.innerHeight;
-        const opacity = 1 - scroll / (windowHeight * 0.8);
-        const scale = 1 - scroll / 5000;
-
-        if (opacity >= 0) {
-          header.style.opacity = opacity.toString();
-          header.style.transform = `scale(${scale})`;
-        } else {
-          header.style.opacity = "0";
-        }
-      });
     </script>
   </body>
 </html>
