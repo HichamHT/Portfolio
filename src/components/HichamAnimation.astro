@@ -73,7 +73,7 @@ const { firstHalf, secondHalf } = splitName(name);
         </div>
         <div class="hicham-nav__end">
           <div class="hicham-nav__links">
-            <a href="#conocimientos" class="hicham-nav__link">Conocimientos</a>
+            <a href="#knowledge" class="hicham-nav__link">Conocimientos</a>
             <a href="#projects" class="hicham-nav__link">Proyectos</a>
             <a href="#about" class="hicham-nav__link">Sobre mí</a>
             <a href="#contact" class="hicham-nav__link">Contacto</a>
@@ -94,7 +94,60 @@ const { firstHalf, secondHalf } = splitName(name);
   </div>
 </section>
 
-<!-- Script corregido con las nuevas clases -->
+<script is:inline>
+  const initScrollEffects = () => {
+    if (typeof window === 'undefined' || !window.gsap) return;
+    
+    // Registramos el plugin de Scroll
+    window.gsap.registerPlugin(window.ScrollTrigger);
+
+    const header = document.querySelector(".hicham-header");
+    const content = document.querySelector(".hicham-header__content");
+
+    if (header && content) {
+      // Efecto de alejamiento (Fade + Scale)
+      window.gsap.to(content, {
+        scrollTrigger: {
+          trigger: "#main-content", // Se activa cuando el contenido negro empieza a subir
+          start: "top bottom",      // Empieza cuando el borde superior del main entra por abajo
+          end: "top top",         // Termina cuando el main cubre toda la pantalla
+          scrub: true,              // Sincroniza la animación con el scroll
+        },
+        opacity: 0,
+        scale: 0.8,                 // Efecto de que se aleja al fondo
+        y: -50,                     // Ligero movimiento hacia arriba para dar profundidad
+        ease: "none"
+      });
+
+      // También desvanecemos el fondo oscuro de la sección
+      window.gsap.to(header, {
+        scrollTrigger: {
+          trigger: "#main-content",
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+        },
+        backgroundColor: "#000000", // Transición a negro puro para fundirse con el main
+        ease: "none"
+      });
+    }
+  };
+
+  // Necesitamos cargar ScrollTrigger si no está
+  const loadScrollTrigger = () => {
+    if (window.ScrollTrigger) {
+      initScrollEffects();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js';
+      script.onload = initScrollEffects;
+      document.head.appendChild(script);
+    }
+  };
+
+  // Ejecutar después de que la intro termine o el DOM esté listo
+  window.addEventListener('load', loadScrollTrigger);
+</script>
 <script is:inline>
   // Función que solo se ejecuta en el navegador
   const initAnimation = () => {

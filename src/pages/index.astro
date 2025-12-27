@@ -1,5 +1,6 @@
 ---
 import HichamAnimation from "../components/HichamAnimation.astro";
+import Menu from "../components/Menu.astro";
 import "../styles/global.css";
 ---
 
@@ -12,6 +13,8 @@ import "../styles/global.css";
   </head>
   <body class="bg-gray-100 overflow-x-hidden">
     <HichamAnimation name="Hicham" />
+
+    <Menu />
 
     <main
       id="main-content"
@@ -95,32 +98,66 @@ import "../styles/global.css";
       </div>
     </main>
 
-    <script>
-      import Lenis from "lenis";
+<script>
+  import Lenis from "lenis";
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-      });
+  gsap.registerPlugin(ScrollTrigger);
 
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  // Detenemos el scroll durante la intro
+  lenis.stop();
+
+  setTimeout(() => {
+    const mainContent = document.getElementById("main-content");
+    if (mainContent) {
+      mainContent.classList.remove("opacity-0", "invisible");
+      mainContent.classList.add("opacity-100");
+      lenis.start();
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, 6500);
+
+  // Lógica de aparición ÚNICAMENTE por Scroll
+  const menuBtn = document.querySelector('.menu-container');
+  const firstCard = document.querySelector('.knowledge-card-pin[style*="--index: 1"]');
+
+  if (menuBtn && firstCard) {
+    ScrollTrigger.create({
+      trigger: firstCard,
+      start: "top 200px", 
+      onEnter: () => {
+        // Aparece el menú y se vuelve interactuable
+        gsap.to(menuBtn, { 
+          autoAlpha: 1, 
+          pointerEvents: "auto",
+          duration: 0.5, 
+          ease: "power2.out"
+        });
+      },
+      onLeaveBack: () => {
+        // Desaparece por completo al subir
+        gsap.to(menuBtn, { 
+          autoAlpha: 0, 
+          pointerEvents: "none",
+          duration: 0.5,
+          ease: "power2.in"
+        });
       }
-      requestAnimationFrame(raf);
-
-      lenis.stop();
-
-      setTimeout(() => {
-        const mainContent = document.getElementById("main-content");
-        if (mainContent) {
-          mainContent.classList.remove("opacity-0", "invisible");
-          mainContent.classList.add("opacity-100");
-          lenis.start();
-          document.body.classList.remove("overflow-hidden");
-        }
-      }, 6500);
-    </script>
+    });
+  }
+</script>
   </body>
 </html>

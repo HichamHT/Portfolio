@@ -1,0 +1,123 @@
+---
+---
+<div class="menu-container">
+  <div class="menu_button" id="menu-trigger">
+    <svg version="1.1" id="menu-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136.55 154.72">
+      <style>
+        .st0{fill:none;stroke:currentColor;stroke-width:14;stroke-linecap:round;stroke-miterlimit:10;}
+      </style>
+      <line id="bottom_right" class="st0" x1="68.28" y1="145.16" x2="126.99" y2="111.26"/>
+      <line id="x_left" class="st0" x1="126.99" y1="43.46" x2="9.56" y2="111.26"/>
+      <line id="middle_right" class="st0" x1="126.99" y1="43.46" x2="126.99" y2="111.26"/>
+      <line id="top_right" class="st0" x1="68.28" y1="9.56" x2="126.99" y2="43.46"/>
+      <line id="middle_left" class="st0" x1="9.56" y1="43.46" x2="9.56" y2="111.26"/>
+      <line id="x_right" class="st0" x1="9.56" y1="43.46" x2="126.99" y2="111.26"/>
+      <line id="bottom_left" class="st0" x1="9.56" y1="111.26" x2="68.28" y2="145.16"/>
+      <line id="top_left" class="st0" x1="9.56" y1="43.46" x2="68.28" y2="9.56"/>
+    </svg>
+  </div>
+
+  <nav id="menu-overlay" class="menu-overlay">
+    <div class="menu-links">
+      <a href="#knowledge" class="menu-link">Conocimientos</a>
+      <a href="#projects" class="menu-link">Proyectos</a>
+      <a href="#about" class="menu-link">Sobre mí</a>
+      <a href="#contact" class="menu-link">Contacto</a>
+    </div>
+  </nav>
+</div>
+
+<style>
+.menu-container {
+    position: fixed;
+    top: 40px;
+    right: 5%;
+    z-index: 2000;
+    opacity: 0;           /* Totalmente invisible al cargar */
+    visibility: hidden;    /* Oculto para el navegador */
+    pointer-events: none; /* No interactuable */
+  }
+  .menu_button {
+    width: 50px;
+    cursor: pointer;
+    color: white; /* Cambiará a negro en secciones blancas si lo deseas */
+    z-index: 2001;
+    position: relative;
+  }
+  /* Ocultamos inicialmente los trazos según tu diseño */
+  #middle_left, #middle_right, #top_right, #bottom_left, #x_right {
+    opacity: 0;
+  }
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: -1;
+  }
+  .menu-overlay.is-open { right: 0; }
+  .menu-links { display: flex; flex-direction: column; align-items: center; }
+  .menu-link {
+    color: white;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 15px 0;
+    font-family: 'PP Neue Montreal', sans-serif;
+    transition: opacity 0.3s;
+  }
+  .menu-link:hover { opacity: 0.5; }
+</style>
+
+<script>
+  import gsap from "gsap";
+
+  const btn = document.getElementById("menu-trigger");
+  const overlay = document.getElementById("menu-overlay");
+  const menuLinks = document.querySelectorAll(".menu-link");
+  let isClicked = false;
+
+  // Animación gratuita usando autoAlpha (opacidad + visibilidad)
+  const tl = gsap.timeline({ paused: true });
+  
+  tl.to("#x_left", { autoAlpha: 0, duration: 0.3 }, 0)
+    .to("#top_right, #middle_left, #middle_right, #bottom_left", { autoAlpha: 1, duration: 0.3 }, 0)
+    .addLabel("hover")
+    .to("#x_right, #x_left", { autoAlpha: 1, duration: 0.3 }, "hover")
+    .to("#top_right, #middle_left, #middle_right, #bottom_left, #top_left, #bottom_right", { autoAlpha: 0, duration: 0.3 }, "hover");
+
+  btn?.addEventListener("mouseenter", () => {
+    if (!isClicked) tl.tweenTo("hover");
+  });
+
+  btn?.addEventListener("mouseleave", () => {
+    if (!isClicked) tl.reverse();
+  });
+
+  btn?.addEventListener("click", () => {
+    isClicked = !isClicked;
+    if (isClicked) {
+      tl.play();
+      overlay?.classList.add("is-open");
+      gsap.to(btn, { color: "white", duration: 0.3 }); // Asegurar blanco sobre fondo negro
+    } else {
+      tl.reverse();
+      overlay?.classList.remove("is-open");
+    }
+  });
+
+  // Cerrar al clickar un link
+  menuLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      isClicked = false;
+      tl.reverse();
+      overlay?.classList.remove("is-open");
+    });
+  });
+</script>
